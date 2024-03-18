@@ -1,0 +1,226 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-color: #f7f7f7;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 40px); /* Adjust as needed */
+    gap: 2px;
+    margin-bottom: 20px;
+}
+
+#gameBoard div {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+}
+
+#gameBoard div.alive {
+    background-color: #4caf50; /* 살아있는 셀의 색상 */
+}
+
+.game-board-container {
+    position: relative; /* This makes it a reference for absolutely positioned children */
+}
+
+#boardSizeControls {
+    position: absolute; /* 요소를 문서의 흐름에서 제거하고 위치를 지정합니다. */
+    top: 5vw; /* 상단에서 4vw 떨어진 위치에 배치합니다. */
+    left: 20px; /* 왼쪽에서 20px 떨어진 위치에 배치합니다. */
+    background: rgba(255, 255, 255, 0.3); /* 배경색 지정 */
+    padding: 10px; /* 패딩 지정 */
+    border-radius: 5px; /* 테두리 반경 지정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+}
+
+#boardSizeInput,
+#applyBoardSize {
+    margin-right: 5px; /* 요소 사이의 오른쪽 여백 지정 */
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align all child elements */
+    margin-left: 20px; /* Space between the game board and the right sidebar */
+}
+
+.speed-control-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the speed control label and input */
+    width: 100%; /* Ensure the container takes up the full width */
+}
+
+#startButton,
+#statusDisplay,
+#speedControl,
+#patternSelector,
+#generationDisplay,
+#placePatternButton,
+#stats,
+#savePatternButton,
+#loadPatternButton {
+    text-align: center; /* Center align text for all these elements */
+    width: 100%; /* Ensure each control takes up the full width */
+    /* Add some space between each control */
+    margin: auto auto 20px;
+}
+
+/* The track of the slider */
+#speedControl {
+    -webkit-appearance: none; /* Override default appearance for WebKit browsers */
+    appearance: none;
+    width: 100%; /* Full-width - feel free to change this */
+    height: 8px; /* Height of the track */
+    background: #ddd; /* Background color of the track */
+    outline: none; /* Remove the outline */
+    opacity: 0.7; /* Set the transparency (optional) */
+    transition: opacity .2s; /* Smooth transition for hover effect */
+    border-radius: 5px; /* Rounded corners for the track */
+}
+
+/* The thumb (the draggable circle) */
+#speedControl::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default appearance for WebKit browsers */
+    appearance: none;
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    background: #007bff; /* Background color of the thumb */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%; /* Circular shape for the thumb */
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.2); /* Shadow for the thumb (optional) */
+}
+
+#speedControl::-moz-range-thumb {
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    background: #007bff; /* Background color of the thumb */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50%; /* Circular shape for the thumb */
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.2); /* Shadow for the thumb (optional) */
+}
+
+/* Hover effect for the track */
+#speedControl:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* Styles for Firefox */
+#speedControl::-moz-range-track {
+    background: #ddd;
+    border-radius: 5px;
+}
+
+/* Styles for IE */
+#speedControl::-ms-track {
+    background: transparent; /* Needs to be transparent for the thumb to appear */
+    border-color: transparent;
+    color: transparent;
+}
+
+#speedControl::-ms-thumb {
+    background: #007bff;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 1px rgba(0,0,0,0.2);
+}
+
+/* Focus styles */
+#speedControl:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px #fff, 0 0 0 6px #007bff; /* A nice focus glow effect */
+}
+
+/* General button styling */
+button {
+    padding: 10px 15px; /* Add padding to make the buttons larger */
+    font-size: 14px; /* Set the font size */
+    color: white; /* Set the text color to white */
+    background-color: #007BFF; /* A nice shade of blue for the background */
+    border: none; /* Remove the default border */
+    border-radius: 4px; /* Round the corners */
+    cursor: pointer; /* Change cursor to indicate button functionality */
+    outline: none; /* Remove the focus outline */
+    transition: background-color 0.3s, transform 0.1s; /* Smooth transition for background color and transform */
+}
+
+/* Add a subtle shadow to lift the button off the page */
+button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect for buttons */
+button:hover {
+    background-color: #0056b3; /* Darker shade when hovered */
+    transform: translateY(-2px); /* Slightly raise the button */
+}
+
+/* Active/Clicked effect for buttons */
+button:active {
+    transform: translateY(1px); /* Depress the button a bit */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Reduce the shadow to simulate being pressed */
+}
+
+/* You can add specific styles to individual buttons using their IDs if needed */
+#applyBoardSize,
+#placePatternButton,
+#savePatternButton,
+#loadPatternButton {
+    /* Specific styles for individual buttons can go here */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font */
+}
+
+/* Specific styles for text elements */
+#statusDisplay,
+.label-text,
+#generationDisplay,
+#aliveCellsCount,
+#aliveCells{
+    font-size: 16px; /* Adjust the size as needed */
+    color: #333; /* A dark grey color that is easy on the eyes */
+    font-weight: bold; /* Make text bold */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* A light shadow for depth */
+    margin-bottom: 10px; /* Spacing below each text element */
+}
+
+#aliveCellsCount,
+#aliveCells{
+    font-size: 20px; /* Slightly larger for important info */
+    color: #d30845; /* A color that stands out */
+    margin-bottom: 20px; /* More space for the larger text */
+}
+
+/* You may want to add a specific class to label texts */
+.label-text {
+    text-transform: uppercase; /* Capitalize labels for a consistent look */
+    letter-spacing: 1px; /* Increase spacing between letters */
+}
+
+/* Adjust individual elements if necessary */
+#generationDisplay {
+    font-size: 18px; /* Slightly larger for important info */
+    color: #8b0594; /* A color that stands out */
+}
+
+label {
+    font-weight: 600; /* Slightly bold but not too heavy */
+    text-transform: capitalize; /* Only the first letter of each word is uppercase */
+    letter-spacing: 1px; /* Subtle spacing between characters */
+    color: #555; /* A softer shade of grey for a modern look */
+    font-size: 14px; /* A moderate size for readability */
+    margin-bottom: 8px; /* Adequate space below the label */
+    display: inline-block; /* Allows the label to sit next to other inline or inline-block elements */
+    padding: 5px 0; /* Adds padding to the top and bottom for a balanced look */
+}
+
+

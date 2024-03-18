@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="game-board-container">
+    <div id="boardSizeControls">
+        <label for="boardSizeInput">Board Size:</label>
+        <input type="number" id="boardSizeInput" value="10" min="1" max="1000">
+        <button id="applyBoardSize">Apply</button>
+    </div>
+    <canvas id="gameCanvas" width="800" height="800"></canvas>
+</div>
+
+<div class="controls-container">
+    <button id="startButton">Start Game</button>
+    <div id="statusDisplay"></div>
+
+    <div class="speed-control-container">
+        <label for="speedControl">Speed Control:</label>
+        <input type="range" id="speedControl" min="1" max="1000" value="500">
+    </div>
+
+    <label for="patternSelector">Choose a pattern:</label>
+    <select id="patternSelector">
+        <option value="glider">Glider</option>
+        <option value="spaceship">Spaceship</option>
+        <option value="oscillator">Oscillator</option>
+    </select>
+    <button id="placePatternButton">Place Pattern</button>
+    <div id="stats">
+        <div id="generationDisplay">Generation: 0</div>
+        <div id="aliveCells">Number of living cells: <span id="aliveCellsCount"></span></div>
+    </div>
+    <button id="savePatternButton">Save Pattern</button>
+    <button id="loadPatternButton">Load Pattern</button>
+</div>
+
+<script src="js/patterns.js"></script>
+<script src="js/gameLogic.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
